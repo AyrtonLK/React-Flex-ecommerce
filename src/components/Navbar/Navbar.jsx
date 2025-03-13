@@ -1,10 +1,12 @@
 import CartWidget from '../CartWidget.jsx/CartWidget';
+import LogoTienda from '../Logo/Logo';
 import './Navbar.css';
 
 function Navbar() {
-    return (
+    return ( 
         <header>
             <nav className="nav-bar">
+                <LogoTienda/>
                 <p>Logo</p>
                 <ul className="nav-bar-items">
                     <li>Inicio</li>

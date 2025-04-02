@@ -3,17 +3,19 @@ import LogoTienda from '../Logo/Logo';
 import './Navbar.css';
 
 function Navbar() {
+    
+    const carrito = [1,2]
+
     return ( 
         <header>
             <nav className="nav-bar">
                 <LogoTienda/>
-                <p>Logo</p>
                 <ul className="nav-bar-items">
                     <li>Inicio</li>
                     <li>Productos</li>
                     <li>Contactos</li>
                 </ul>   
-                <CartWidget />
+                <CartWidget cantidad={carrito.length}/>
             </nav>
         </header>
     );

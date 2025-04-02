@@ -1,5 +1,5 @@
 import './Logo.css';
-import logo1 from '../../assets/img';
+import logo1 from '../../assets/img/logo2.png';
 
 
 function LogoTienda() {

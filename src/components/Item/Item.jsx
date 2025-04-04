@@ -1,7 +1,8 @@
+import { Link } from "react-router";
 import "./Item.css";
 
-function Item({ productos, filtrarProducto }) {
-  const { nombre, precio, stock } = productos;
+function Item({ productos }) {
+  const { id, nombre, precio, stock } = productos;
 
   function agregarAlCarrito(prod){
     const nuevoProducto = {
@@ -17,7 +18,9 @@ function Item({ productos, filtrarProducto }) {
       <h5 className="card-body">Precio: ${precio}</h5>
       <p>Quedan {stock} disponiblles</p>
       <button className="btn btn-secondary my-2" onClick={() => agregarAlCarrito(productos)}>Agregar al carrito</button>
-      <button className="btn btn-secondary my-2" onClick={() => filtrarProducto(productos)}>Ver detalle</button>
+      <Link to={`/detalle/${id}`}>
+        <button className="btn btn-secondary my-2">Ver detalle</button>
+      </Link>
     </div>
   );
 }

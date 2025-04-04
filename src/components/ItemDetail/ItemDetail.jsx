@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
 import './ItemDetail.css';
+import { Link, useParams } from 'react-router';
+import { fetchData } from '../../fetchData';
+import Loader from '../Loader/Loader';
 
 
-function ItemDetail({ productos, volverAlInicio }) {
+function ItemDetail() {
+    const { id } = useParams();
 
+    const [loading, setLoading] = useState(true);
+    const [productos, setProductos] = useState(null);
     const [contador, setContador] = useState(1);
 
-    const { nombre, precio, categoria, descripcion, stock } = productos;
+
     
     function agregarAlCarrito(prod){
         const nuevoProducto = {
@@ -17,23 +23,45 @@ function ItemDetail({ productos, volverAlInicio }) {
         console.log("Vas a agregar", nuevoProducto);
         setContador(1);
       };
+
+      useEffect (() => {
+            fetchData() 
+              .then(response => {
+                const productoAMostrar = response.find(elementos => elementos.id === parseInt(id));
+                console.log(productoAMostrar);
+                setProductos(productoAMostrar);
+                 setTimeout(() => {
+                   setLoading(false);
+                 }, 500);
+              }) 
+              .catch((err) => console.error(err));
+      },[]);
   
     return (
-        <div className="card p-4">
-            <h3 className="card-header">{nombre}</h3>
-            <div className="card-body">
-                 <h5>Precio: ${precio}</h5>
-                 <h5>Categoria: <b>{categoria.toUpperCase()}</b></h5>
-                 <p><b>{descripcion}</b></p>
-                 <p>Quedan <b>{stock}</b> disponiblles</p>
+      loading ?
 
-                 <ItemCount stock={stock} contador={contador} setContador={setContador}/>
+       <Loader />
+
+       :
+
+      <div className="card p-4">
+
+            <h3 className="card-header">{productos.nombre}</h3>
+            <div className="card-body">
+                 <h5>Precio: ${productos.precio}</h5>
+                 <h5>Categoria: <b>{productos.categoria.toUpperCase()}</b></h5>
+                 <p><b>{productos.descripcion}</b></p>
+                 <p>Quedan <b>{productos.stock}</b> disponiblles</p>
+
+                 <ItemCount stock={productos.stock} contador={contador} setContador={setContador}/>
                  
                  <button className="btn btn-secondary my-2" onClick={() => agregarAlCarrito(productos)}>Agregar al carrito</button>
-                 <button className="btn btn-secondary my-2" onClick={volverAlInicio}>Volver al inicio</button>
+                 <Link to="/">
+                 <button className="btn btn-secondary my-2">Volver al inicio</button>
+                 </Link> 
             </div>
-        </div>
+         </div>
     );
-}
+};
 
 export default ItemDetail;

@@ -1,16 +1,12 @@
 import { Link } from "react-router";
 import "./Item.css";
+import { useAppContext } from '../../context/context';
 
 function Item({ productos }) {
+
   const { id, nombre, precio, stock } = productos;
 
-  function agregarAlCarrito(prod){
-    const nuevoProducto = {
-      ...prod,
-      cantidad: 1,
-    };
-    console.log("Vas a agregar", nuevoProducto);
-  }
+  const { agregarAlCarrito } = useAppContext();
 
   return (
     <div className="card p-4">

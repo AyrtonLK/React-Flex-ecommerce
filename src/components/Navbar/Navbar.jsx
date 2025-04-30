@@ -4,8 +4,6 @@ import LogoTienda from '../Logo/Logo';
 import './Navbar.css';
 
 function Navbar() {
-    
-    const carrito = [1,2]
 
     return ( 
         <header>
@@ -23,7 +21,7 @@ function Navbar() {
                     </Link>
                 </ul>   
                 <Link to="/carrito">
-                <CartWidget cantidad={carrito.length}/>
+                <CartWidget/>
                 </Link>
             </nav>
         </header>
